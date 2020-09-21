@@ -6,7 +6,7 @@ const image2 = document.getElementById('image2');
 const image3 = document.getElementById('image3');
 const textBox = document.getElementById('text-box');
 const innerWord = document.getElementById('inner-word');
-
+let isDark = true;
 
 // Dark or light images
 function imageMode(color, text) {
@@ -16,40 +16,28 @@ function imageMode(color, text) {
     innerWord.textContent = `${text}`;
 }
 
-// Dark Mode
-function darkMode() {
-    nav.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    textBox.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-    toggleIcon.children[0].textContent = 'Dark Mode';
-    toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon');
-    imageMode('dark', 'dark');
-}
+function toggleDarkLightMode(isDark) {
+    nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
+    textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
+    toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
+    isDark ? toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon') : toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
+    isDark ? imageMode('dark', 'dark') : imageMode('light', 'light');
 
-// Light Mode
-function lightMode() {
-    nav.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-    textBox.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    toggleIcon.children[0].textContent = 'Light Mode';
-    toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
-    imageMode('light', 'light');
 }
 
 function switchTheme(event) {
-    console.log(event.target.checked);
-
     if (event.target.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark');
-
-        darkMode();
+        isDark = true;
+        toggleDarkLightMode(isDark);
     } else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
-        lightMode();
+        isDark = false;
+        toggleDarkLightMode(isDark);
     }
-
 }
-
 
 // Event Listener
 toggleSwitch.addEventListener('change', switchTheme);
@@ -60,6 +48,7 @@ if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
     if (currentTheme === 'dark') {
         toggleSwitch.checked = true;
-        darkMode();
+        isDark = true;
+        toggleDarkLightMode(isDark);
     }
 }
