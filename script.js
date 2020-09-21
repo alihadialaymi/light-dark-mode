@@ -8,33 +8,30 @@ const textBox = document.getElementById('text-box');
 const innerWord = document.getElementById('inner-word');
 
 
+// Dark or light images
+function imageMode(color, text) {
+    image1.src = `img/undraw_proud_coder_${color}.svg`;
+    image2.src = `img/undraw_feeling_proud_${color}.svg`;
+    image3.src = `img/undraw_conceptual_idea_${color}.svg`;
+    innerWord.textContent = `${text}`;
+}
+
 // Dark Mode
 function darkMode() {
     nav.style.backgroundColor = 'rgb(0 0 0 / 50%)';
     textBox.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-    console.log(toggleIcon.children);
     toggleIcon.children[0].textContent = 'Dark Mode';
-    toggleIcon.children[1].classList.remove('fa-sun');
-    toggleIcon.children[1].classList.add('fa-moon');
-    image1.src = 'img/undraw_proud_coder_dark.svg';
-    image2.src = 'img/undraw_feeling_proud_dark.svg';
-    image3.src = 'img/undraw_conceptual_idea_dark.svg';
-    innerWord.textContent = 'dark';
+    toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon');
+    imageMode('dark', 'dark');
 }
 
 // Light Mode
 function lightMode() {
     nav.style.backgroundColor = 'rgb(255 255 255 / 50%)';
     textBox.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    console.log(toggleIcon.children);
     toggleIcon.children[0].textContent = 'Light Mode';
-    toggleIcon.children[1].classList.remove('fa-moon');
-    toggleIcon.children[1].classList.add('fa-sun');
-    image1.src = 'img/undraw_proud_coder_light.svg';
-    image2.src = 'img/undraw_feeling_proud_light.svg';
-    image3.src = 'img/undraw_conceptual_idea_light.svg';
-    innerWord.textContent = 'light';
-
+    toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
+    imageMode('light', 'light');
 }
 
 function switchTheme(event) {
